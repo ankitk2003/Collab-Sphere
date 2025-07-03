@@ -287,13 +287,70 @@ function Home() {
         </div>
       </div>
 
-
       <div id="quote-div" className="flex justify-center mt-10">
         <div className="w-[1250px] h-[270px] bg-[#4d1727] flex justify-center text-6xl tracking-wide rounded-md">
-            <span className="text-white mt-24">Brands and influencers at your<span className="text-[#ff914d] ml-2">fingertips</span></span>
+          <span className="text-white mt-24">
+            Brands and influencers at your
+            <span className="text-[#ff914d] ml-2">fingertips</span>
+          </span>
         </div>
-
       </div>
+
+
+
+
+<div className="flex justify-center">
+<footer className="bg-[#013a12] text-white py-10 mt-10 w-[1285px]">
+  <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-8">
+    
+    {/* Logo & Tagline */}
+    <div>
+      <h3 className="text-2xl font-bold mb-3">Collab_Sphere</h3>
+      <p className="text-gray-300 text-sm">
+        Connecting brands with the right influencers to drive growth & engagement.
+      </p>
+    </div>
+
+    {/* Quick Links */}
+    <div>
+      <h4 className="font-semibold mb-3">Quick Links</h4>
+      <ul className="space-y-2 text-sm text-gray-300">
+        <li><a href="#" className="hover:underline">Home</a></li>
+        <li><a href="#" className="hover:underline">Explore</a></li>
+        <li><a href="#" className="hover:underline">Blog</a></li>
+        <li><a href="#" className="hover:underline">Podcast</a></li>
+        <li><a href="#" className="hover:underline">FAQs</a></li>
+      </ul>
+    </div>
+
+    {/* Contact */}
+    <div>
+      <h4 className="font-semibold mb-3">Contact Us</h4>
+      <p className="text-sm text-gray-300">Email: support@collabsphere.com</p>
+      <p className="text-sm text-gray-300">Phone: +91-9876543210</p>
+      <p className="text-sm text-gray-300">Location: India</p>
+    </div>
+
+    {/* Social Media */}
+    <div>
+      <h4 className="font-semibold mb-3">Follow Us</h4>
+      <div className="flex space-x-4 text-2xl">
+        <FaFacebook className="hover:text-blue-500 cursor-pointer" />
+        <FaInstagram className="hover:text-pink-500 cursor-pointer" />
+        <FaYoutube className="hover:text-red-500 cursor-pointer" />
+        <FaSnapchatGhost className="hover:text-yellow-400 cursor-pointer" />
+        <FaTelegramPlane className="hover:text-blue-400 cursor-pointer" />
+      </div>
+    </div>
+
+  </div>
+
+  <div className="mt-8 text-center text-gray-400 text-xs">
+    © {new Date().getFullYear()} Collab_Sphere. All rights reserved.
+  </div>
+</footer>
+</div>
+
     </>
   );
 }

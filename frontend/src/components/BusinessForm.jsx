@@ -35,6 +35,11 @@ const BusinessForm = () => {
         formData.append("profilePhoto", selectedPhoto);
       }
 
+    if(!formData.industry||!formData.websiteUrl){
+      alert("all fields are required");
+      return;
+    }
+
       const res = await axios.post(
         `${API_BASE}/api/v1/business/profile`,
         formData,

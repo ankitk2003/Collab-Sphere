@@ -72,7 +72,7 @@ function Login() {
       if (error.response && error.response.status === 403) {
         alert("Incorrect credentials");
       } else {
-        alert("Something went wrong. Please try again later.");
+        alert("Something went wrong. Please try again later."); // catch and alter any type of error
       }
     }
   };

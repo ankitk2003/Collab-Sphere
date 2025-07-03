@@ -168,7 +168,10 @@ function Creators() {
     };
 
     fetchCreators();
+    console.log(creatorsByNiche);
   }, []);
+
+  
 
   return (
     <div className="px-6 py-4">
@@ -200,7 +203,7 @@ function CreatorCard({ creator }) {
       >
         <div className="flex flex-col items-center p-6">
           <img
-            src="https://via.placeholder.com/100"
+            src={creator.profilePhoto}
             alt="Profile"
             className="rounded-full w-24 h-24 object-cover border-4 border-white shadow-md mb-4"
           />

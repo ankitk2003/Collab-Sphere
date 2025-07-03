@@ -27,7 +27,7 @@ const BusinessProfile = () => {
     const FetchProfile = async () => {
       try {
         const res = await axios.get(
-          "http://localhost:3000/api/v1/business/get-posts",
+          "https://collab-sphere-nu.vercel.app/api/v1/business/get-posts",
           {
             headers: { Authorization: `Bearer ${token}` },
           }
@@ -55,7 +55,7 @@ const BusinessProfile = () => {
   const handleDelete = async (postId) => {
     try {
       await axios.delete(
-        `http://localhost:3000/api/v1/business/delete-post/${postId}`,
+        `https://collab-sphere-nu.vercel.app/api/v1/business/delete-post/${postId}`,
         {
           headers: { Authorization: `Bearer ${token}` },
         }
@@ -207,7 +207,7 @@ const CreatorProfile = () => {
     const fetchProfile = async () => {
       try {
         const res = await axios.get(
-          "http://localhost:3000/api/v1/creator/user-profile",
+          "https://collab-sphere-nu.vercel.app/api/v1/creator/user-profile",
           {
             headers: { Authorization: `Bearer ${token}` },
           }

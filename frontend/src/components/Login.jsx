@@ -28,7 +28,7 @@ function Login() {
     }
 
     try {
-      const res = await axios.post("http://localhost:3000/api/v1/user/signin", {
+      const res = await axios.post("https://collab-sphere-nu.vercel.app/api/v1/user/signin", {
         email,
         password,
       });
@@ -43,7 +43,7 @@ function Login() {
 
       if (role === "creator") {
         const profileData = await axios.get(
-          "http://localhost:3000/api/v1/creator/profile",
+          "https://collab-sphere-nu.vercel.app/api/v1/creator/profile",
           {
             headers: { Authorization: `Bearer ${res.data.token}` },
           }
@@ -56,7 +56,7 @@ function Login() {
         }
       } else {
         const profileData = await axios.get(
-          "http://localhost:3000/api/v1/business/profile",
+          "https://collab-sphere-nu.vercel.app/api/v1/business/profile",
           {
             headers: { Authorization: `Bearer ${res.data.token}` },
           }

@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import io from "socket.io-client";
 import { useLocation } from "react-router-dom";
 
-const socket = io("http://localhost:3000");
+const socket = io("https://collab-sphere-nu.vercel.app");
 
 const Chat = () => {
   const [messages, setMessages] = useState([]);
@@ -22,7 +22,7 @@ const Chat = () => {
   useEffect(() => {
     socket.emit("joinRoom", { roomId });
 
-    fetch(`http://localhost:3000/api/chat/${roomId}`)
+    fetch(`https://collab-sphere-nu.vercel.app/api/chat/${roomId}`)
       .then((res) => res.json())
       .then((data) => setMessages(data));
 

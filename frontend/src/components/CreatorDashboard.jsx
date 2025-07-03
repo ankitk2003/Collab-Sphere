@@ -16,7 +16,7 @@ function CreatorDashboard() {
     const fetchProfile = async () => {
       try {
         const token = localStorage.getItem("token");
-        const res = await axios.get("http://localhost:3000/api/v1/creator/user-data", {
+        const res = await axios.get("https://collab-sphere-nu.vercel.app/api/v1/creator/user-data", {
           headers: { Authorization: `Bearer ${token}` },
         });
         const id = res.data.userData._id;
@@ -109,7 +109,7 @@ function Businesses({ senderId }) {
   useEffect(() => {
     const FetchProfile = async () => {
       try {
-        const res = await axios.get("http://localhost:3000/api/v1/business/get-posts", {
+        const res = await axios.get("https://collab-sphere-nu.vercel.app/api/v1/business/get-posts", {
           headers: { Authorization: `Bearer ${token}` },
         });
         setPosts(res.data.posts);
@@ -245,7 +245,7 @@ function CreatorProfile({ username }) {
           return;
         }
 
-        const res = await axios.get("http://localhost:3000/api/v1/creator/profile", {
+        const res = await axios.get("https://collab-sphere-nu.vercel.app/api/v1/creator/profile", {
           headers: {
             Authorization: `Bearer ${token}`,
           },

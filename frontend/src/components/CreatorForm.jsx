@@ -66,7 +66,7 @@ function CreatorForm() {
       }
 
       const res = await axios.post(
-        "http://localhost:3000/api/v1/creator/profile",
+        "https://collab-sphere-nu.vercel.app/api/v1/creator/profile",
         formData,
         {
           headers: {

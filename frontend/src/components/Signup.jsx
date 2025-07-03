@@ -25,7 +25,7 @@ export default function Signup() {
     try {
       setLoading(true);
       const response = await axios.post(
-        "http://localhost:3000/api/v1/user/signup",
+        "https://collab-sphere-nu.vercel.app/api/v1/user/signup",
         {
           username: form.username,
           email: form.email,
@@ -51,7 +51,7 @@ export default function Signup() {
 
     try {
       const response = await axios.post(
-        "http://localhost:3000/api/v1/user/verify-otp",
+        "https://collab-sphere-nu.vercel.app/api/v1/user/verify-otp",
         {
           email: form.email,
           otp: form.otp,

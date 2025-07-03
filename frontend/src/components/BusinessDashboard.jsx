@@ -104,7 +104,7 @@ function Welcome() {
       const token = localStorage.getItem("token");
       try {
         const res = await axios.get(
-          "http://localhost:3000/api/v1/business/user-data",
+          "https://collab-sphere-nu.vercel.app/api/v1/business/user-data",
           {
             headers: { Authorization: `Bearer ${token}` },
           }
@@ -145,7 +145,7 @@ function Creators() {
       try {
         const token = localStorage.getItem("token");
         const res = await axios.get(
-          "http://localhost:3000/api/v1/creator/all-profiles",
+          "https://collab-sphere-nu.vercel.app/api/v1/creator/all-profiles",
           {
             headers: { Authorization: `Bearer ${token}` },
           }

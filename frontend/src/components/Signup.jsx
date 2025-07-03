@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { getAPIBase } from "../utils/getBASEAPI";
+
+const API_BASE = getAPIBase();
 
 export default function Signup() {
   const [stage, setStage] = useState(1);
@@ -25,7 +28,7 @@ export default function Signup() {
     try {
       setLoading(true);
       const response = await axios.post(
-        "https://collab-sphere-nu.vercel.app/api/v1/user/signup",
+        `${API_BASE}/api/v1/user/signup`,
         {
           username: form.username,
           email: form.email,
@@ -51,7 +54,7 @@ export default function Signup() {
 
     try {
       const response = await axios.post(
-        "https://collab-sphere-nu.vercel.app/api/v1/user/verify-otp",
+        `${API_BASE}/api/v1/user/verify-otp`,
         {
           email: form.email,
           otp: form.otp,

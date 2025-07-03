@@ -84,18 +84,19 @@ import { businessRouter } from './routes/businessProfile';
 import chatRoutes from './routes/chat.js'; // Use `.js` for ES modules
 import { messageModel } from './db';
 
+
 dotenv.config();
 
 const app = express();
 const server = http.createServer(app);
 
-// ✅ Allowed origins
+// Allowed origins
 const allowedOrigins = [
   'http://localhost:5173',
   'https://collabsphereai.vercel.app',
 ];
 
-// ✅ CORS for Express
+//  CORS for Express
 app.use(
   cors({
     origin: allowedOrigins,
@@ -105,7 +106,13 @@ app.use(
 );
 app.use(express.json());
 
-// ✅ Socket.IO setup with matching CORS
+app.options('*', cors({
+  origin: allowedOrigins,
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  credentials: true,
+}));
+
+
 const io = new SocketIOServer(server, {
   cors: {
     origin: allowedOrigins,
@@ -113,19 +120,16 @@ const io = new SocketIOServer(server, {
   },
 });
 
-// ✅ Routes
 app.use('/api/chat', chatRoutes);
 app.use('/api/v1/user', userRouter);
 app.use('/api/v1/creator', creatorRouter);
 app.use('/api/v1/business', businessRouter);
 
-// ✅ MongoDB Connection
 mongoose
   .connect(process.env.MONGO_URI as string)
   .then(() => console.log('MongoDB connected'))
   .catch((err) => console.error('MongoDB connection error:', err));
 
-// ✅ Socket.IO Events
 io.on('connection', (socket) => {
   console.log('User connected');
 
@@ -149,7 +153,6 @@ io.on('connection', (socket) => {
   });
 });
 
-// ✅ Start Server
 const PORT = process.env.PORT || 5000;
 server.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);

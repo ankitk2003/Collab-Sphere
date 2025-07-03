@@ -1,6 +1,9 @@
 import axios from "axios";
 import React, { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { getAPIBase } from "../utils/getBASEAPI";
+
+const API_BASE = getAPIBase();
 
 const BusinessForm = () => {
   const navigate = useNavigate();
@@ -33,7 +36,7 @@ const BusinessForm = () => {
       }
 
       const res = await axios.post(
-        "https://collab-sphere-nu.vercel.app/api/v1/business/profile",
+        `${API_BASE}/api/v1/business/profile`,
         formData,
         {
           headers: {

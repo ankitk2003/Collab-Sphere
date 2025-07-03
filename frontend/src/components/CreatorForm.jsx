@@ -1,6 +1,9 @@
 import axios from "axios";
 import React, { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { getAPIBase } from "../utils/getBASEAPI";
+
+const API_BASE = getAPIBase();
 
 const niches = [
   "Technology",
@@ -66,7 +69,7 @@ function CreatorForm() {
       }
 
       const res = await axios.post(
-        "https://collab-sphere-nu.vercel.app/api/v1/creator/profile",
+        `${API_BASE}/api/v1/creator/profile`,
         formData,
         {
           headers: {

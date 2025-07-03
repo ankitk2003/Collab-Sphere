@@ -1,8 +1,11 @@
 import { useState, useEffect } from "react";
 import io from "socket.io-client";
 import { useLocation } from "react-router-dom";
+import { getAPIBase } from "../utils/getBASEAPI";
 
-const socket = io("https://collab-sphere-nu.vercel.app");
+const API_BASE = getAPIBase();
+
+const socket = io(`${API_BASE}`);
 
 const Chat = () => {
   const [messages, setMessages] = useState([]);
@@ -22,7 +25,7 @@ const Chat = () => {
   useEffect(() => {
     socket.emit("joinRoom", { roomId });
 
-    fetch(`https://collab-sphere-nu.vercel.app/api/chat/${roomId}`)
+    fetch(`${API_BASE}/api/chat/${roomId}`)
       .then((res) => res.json())
       .then((data) => setMessages(data));
 

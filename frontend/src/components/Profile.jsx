@@ -3,6 +3,9 @@ import BusinesssNav from "./BusinessNav";
 import Banner from "../images/Banner.jpg";
 import axios from "axios";
 import { use } from "react";
+import { getAPIBase } from "../utils/getBASEAPI";
+
+const API_BASE = getAPIBase();
 
 function Profile() {
   const role = localStorage.getItem("role");
@@ -27,7 +30,7 @@ const BusinessProfile = () => {
     const FetchProfile = async () => {
       try {
         const res = await axios.get(
-          "https://collab-sphere-nu.vercel.app/api/v1/business/get-posts",
+          `${API_BASE}/api/v1/business/get-posts`,
           {
             headers: { Authorization: `Bearer ${token}` },
           }
@@ -55,7 +58,7 @@ const BusinessProfile = () => {
   const handleDelete = async (postId) => {
     try {
       await axios.delete(
-        `https://collab-sphere-nu.vercel.app/api/v1/business/delete-post/${postId}`,
+        `${API_BASE}/api/v1/business/delete-post/${postId}`,
         {
           headers: { Authorization: `Bearer ${token}` },
         }
@@ -207,7 +210,7 @@ const CreatorProfile = () => {
     const fetchProfile = async () => {
       try {
         const res = await axios.get(
-          "https://collab-sphere-nu.vercel.app/api/v1/creator/user-profile",
+          `${API_BASE}/api/v1/creator/user-profile`,
           {
             headers: { Authorization: `Bearer ${token}` },
           }

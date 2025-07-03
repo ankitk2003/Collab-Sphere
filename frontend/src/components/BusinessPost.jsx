@@ -3,6 +3,10 @@ import BusinesssNav from "./BusinessNav";
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { getAPIBase } from "../utils/getBASEAPI";
+
+const API_BASE = getAPIBase();
+
 function BusinessPost() {
   return (
     <div>
@@ -38,7 +42,7 @@ const CreateCampaignForm = () => {
 }
 
       const res = await axios.post(
-        "https://collab-sphere-nu.vercel.app/api/v1/business/create-post",
+        `${API_BASE}/api/v1/business/create-post`,
 
         payload,
         {

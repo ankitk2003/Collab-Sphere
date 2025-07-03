@@ -5,6 +5,9 @@ import { AiOutlineBell, AiOutlineUser } from "react-icons/ai";
 import axios from "axios";
 import BusinesssNav from "./BusinessNav";
 import { IoIosAddCircleOutline } from "react-icons/io";
+import { getAPIBase } from "../utils/getBASEAPI";
+
+const API_BASE = getAPIBase();
 
 function BusinessDashboard() {
   return (
@@ -104,7 +107,7 @@ function Welcome() {
       const token = localStorage.getItem("token");
       try {
         const res = await axios.get(
-          "https://collab-sphere-nu.vercel.app/api/v1/business/user-data",
+          `${API_BASE}/api/v1/business/user-data`,
           {
             headers: { Authorization: `Bearer ${token}` },
           }
@@ -145,7 +148,7 @@ function Creators() {
       try {
         const token = localStorage.getItem("token");
         const res = await axios.get(
-          "https://collab-sphere-nu.vercel.app/api/v1/creator/all-profiles",
+          `${API_BASE}/api/v1/creator/all-profiles`,
           {
             headers: { Authorization: `Bearer ${token}` },
           }

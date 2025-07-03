@@ -3,6 +3,9 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { authAtom } from "../store/atoms/loginState";
 import { useRecoilValue, useSetRecoilState } from "recoil";
+import { getAPIBase } from "../utils/getBASEAPI";
+
+const API_BASE = getAPIBase();
 
 function Login() {
   const navigate = useNavigate();
@@ -28,7 +31,7 @@ function Login() {
     }
 
     try {
-      const res = await axios.post("https://collab-sphere-nu.vercel.app/api/v1/user/signin", {
+      const res = await axios.post(`${API_BASE}/api/v1/user/signin`, {
         email,
         password,
       });
@@ -43,7 +46,7 @@ function Login() {
 
       if (role === "creator") {
         const profileData = await axios.get(
-          "https://collab-sphere-nu.vercel.app/api/v1/creator/profile",
+          `${API_BASE}/api/v1/creator/profile`,
           {
             headers: { Authorization: `Bearer ${res.data.token}` },
           }
@@ -56,7 +59,7 @@ function Login() {
         }
       } else {
         const profileData = await axios.get(
-          "https://collab-sphere-nu.vercel.app/api/v1/business/profile",
+          `${API_BASE}/api/v1/business/profile`,
           {
             headers: { Authorization: `Bearer ${res.data.token}` },
           }

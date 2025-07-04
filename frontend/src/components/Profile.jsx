@@ -4,6 +4,8 @@ import Banner from "../images/Banner.jpg";
 import axios from "axios";
 import { use } from "react";
 import { getAPIBase } from "../utils/getBASEAPI";
+import { BiEditAlt } from "react-icons/bi";
+import { useNavigate } from "react-router-dom";
 
 const API_BASE = getAPIBase();
 
@@ -11,11 +13,7 @@ function Profile() {
   const role = localStorage.getItem("role");
   const token = localStorage.getItem("token");
 
-  return (
-    <>
-      {role === "business" ? <BusinessProfile /> : <CreatorProfile/>}
-    </>
-  );
+  return <>{role === "business" ? <BusinessProfile /> : <CreatorProfile />}</>;
 }
 
 export default Profile;
@@ -25,19 +23,16 @@ const BusinessProfile = () => {
   const [profile, SetProfile] = useState([]);
   const [profileCardData, setProfileCardData] = useState(null);
   const senderId = localStorage.getItem("senderId");
-
+ const navigate=useNavigate();
   useEffect(() => {
     const FetchProfile = async () => {
       try {
-        const res = await axios.get(
-          `${API_BASE}/api/v1/business/get-posts`,
-          {
-            headers: { Authorization: `Bearer ${token}` },
-          }
-        );
+        const res = await axios.get(`${API_BASE}/api/v1/business/get-posts`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
         console.log(res.data.posts);
         const filteredData = res.data.posts.filter(
-          (post) => post.userId&&post.userId._id === senderId // filter the post which account i have logged in , so fetch it from local host .
+          (post) => post.userId && post.userId._id === senderId // filter the post which account i have logged in , so fetch it from local host .
         );
         // console.log(filteredData)
         SetProfile(filteredData);
@@ -57,12 +52,9 @@ const BusinessProfile = () => {
 
   const handleDelete = async (postId) => {
     try {
-      await axios.delete(
-        `${API_BASE}/api/v1/business/delete-post/${postId}`,
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
+      await axios.delete(`${API_BASE}/api/v1/business/delete-post/${postId}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
       SetProfile((prev) => prev.filter((p) => p._id !== postId));
     } catch (e) {
       console.error("Failed to delete post:", e);
@@ -130,6 +122,17 @@ const BusinessProfile = () => {
                     {profileCardData.websiteUrl}
                   </a>
                 </p>
+       
+  <button
+                  onClick={() => navigate("/business-form")}
+                  className="text-slate-500 hover:text-blue-600 text-2xl p-2 rounded-full hover:bg-gray-100 transition"
+                  title="Edit Profile"
+                >
+                  <BiEditAlt />
+                </button>
+
+
+
               </div>
             </>
           )}
@@ -201,20 +204,16 @@ const BusinessProfile = () => {
   );
 };
 
-
 const CreatorProfile = () => {
   const [profile, setProfile] = useState(null);
   const token = localStorage.getItem("token");
-
+  const navigate=useNavigate();
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const res = await axios.get(
-          `${API_BASE}/api/v1/creator/user-profile`,
-          {
-            headers: { Authorization: `Bearer ${token}` },
-          }
-        );
+        const res = await axios.get(`${API_BASE}/api/v1/creator/user-profile`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
         setProfile(res.data.userData);
       } catch (e) {
         console.log("error in fetching data", e);
@@ -223,7 +222,7 @@ const CreatorProfile = () => {
     fetchProfile();
   }, []);
 
-  if (!profile) return null; 
+  if (!profile) return null;
 
   return (
     <>
@@ -251,13 +250,38 @@ const CreatorProfile = () => {
           </div>
         </div>
 
+
+             <div className="flex">
         <div className="mt-4">
-          <p><strong>Followers:</strong> {profile.followerCount}</p>
-          <p><strong>Engagement Rate:</strong> {profile.engagementRate}</p>
-          <p><strong>Platform:</strong> {profile.platformName}</p>
-          <p><strong>Platform Link:</strong> <a href={profile.platformLink} className="text-blue-600 underline" target="_blank" rel="noreferrer">{profile.platformLink}</a></p>
-          <p><strong>Bio:</strong> {profile.bio}</p>
+          <p>
+            <strong>Followers:</strong> {profile.followerCount}
+          </p>
+          <p>
+            <strong>Engagement Rate:</strong> {profile.engagementRate}
+          </p>
+          <p>
+            <strong>Platform:</strong> {profile.platformName}
+          </p>
+          <p>
+            <strong>Platform Link:</strong>{" "}
+            <a
+              href={profile.platformLink}
+              className="text-blue-600 underline"
+              target="_blank"
+              rel="noreferrer"
+            >
+              {profile.platformLink}
+            </a>
+          </p>
+          <p>
+            <strong>Bio:</strong> {profile.bio}
+          </p>
         </div>
+        <div className="text-xl mt-0 bg text-slate-400 hover:cursor-pointer" onClick={()=>navigate("/creator-form")}>
+          <BiEditAlt />
+        </div>
+      </div>
+      
       </div>
     </>
   );

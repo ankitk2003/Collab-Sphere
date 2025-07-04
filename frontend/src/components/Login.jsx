@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { authAtom } from "../store/atoms/loginState";
@@ -11,7 +11,7 @@ function Login() {
   const navigate = useNavigate();
   const setState = useSetRecoilState(authAtom);
   const stateValue = useRecoilValue(authAtom);
-
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
     console.log("Updated stateValue:", stateValue); // ✅ This will log correctly after the state updates
   }, [stateValue]);
@@ -31,6 +31,7 @@ function Login() {
     }
 
     try {
+      setLoading(true);
       const res = await axios.post(`${API_BASE}/api/v1/user/signin`, {
         email,
         password,
@@ -38,10 +39,10 @@ function Login() {
 
       localStorage.setItem("token", res.data.token);
       const role = res.data.role;
-      localStorage.setItem("role",role);
+      localStorage.setItem("role", role);
       // console.log(role);
       alert("Login successful!");
-
+      setLoading(false);
       setState(true); //  Set Recoil state after successful login
 
       if (role === "creator") {
@@ -77,17 +78,29 @@ function Login() {
       } else {
         alert("Something went wrong. Please try again later."); // catch and alter any type of error
       }
+    }finally{
+      setLoading(false);
     }
   };
 
   return (
     <>
+      {loading && (
+        <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
+          <div className="bg-white p-5 rounded-md shadow-lg">
+            <p className="text-xl font-semibold">Loading...</p>
+          </div>
+        </div>
+      )}
+
       <div className="text-center mt-8 mb-4 text-xl font-semibold text-gray-700">
         Good to see you again! Let’s pick up where you left off.
       </div>
       <div className="flex items-center justify-center min-h-screen bg-gray-50">
         <div className="w-full max-w-md p-8 space-y-6 bg-white rounded-lg shadow-xl">
-          <h2 className="text-2xl font-bold text-center text-gray-800">Login</h2>
+          <h2 className="text-2xl font-bold text-center text-gray-800">
+            Login
+          </h2>
           <form className="space-y-4">
             <div>
               <label className="block mb-1 text-sm font-medium text-gray-700">

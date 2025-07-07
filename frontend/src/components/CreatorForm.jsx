@@ -2,7 +2,8 @@ import axios from "axios";
 import React, { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getAPIBase } from "../utils/getBASEAPI";
-
+import { useSetRecoilState } from "recoil";
+import { loadingAtom } from "../store/atoms/loginState";
 const API_BASE = getAPIBase();
 
 const niches = [
@@ -23,7 +24,7 @@ const niches = [
 function CreatorForm() {
   const [selectedNiche, setSelectedNiche] = useState("");
   const [profilePhoto, setProfilePhoto] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const  setLoading=useSetRecoilState(loadingAtom);
   const bioRef = useRef();
   const usernameRef = useRef();
   const platformNameRef = useRef();
@@ -90,13 +91,7 @@ function CreatorForm() {
 
   return (
     <>
-      {loading && (
-        <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
-          <div className="bg-white p-5 rounded-md shadow-lg">
-            <p className="text-xl font-semibold">Creating profile...</p>
-          </div>
-        </div>
-      )}
+      
 
       <div className="container mx-auto p-5">
         <div id="logo">

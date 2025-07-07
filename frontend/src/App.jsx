@@ -15,6 +15,7 @@ import Signup from "./components/Signup"
 import BusinesssNav from "./components/BusinessNav";
 import BusinessPost from "./components/BusinessPost";
 import Profile from "./components/Profile";
+import GlobalLoader from "./components/GlobalLoader";
 
 function App() {
   return (
@@ -64,6 +65,7 @@ function App() {
             }
           />
         </Routes>
+            <GlobalLoader/>
       </Router>
     </RecoilRoot>
   );

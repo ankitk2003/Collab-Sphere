@@ -2,12 +2,14 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { getAPIBase } from "../utils/getBASEAPI";
+import { useSetRecoilState } from "recoil";
+import { loadingAtom } from "../store/atoms/loginState";
 
 const API_BASE = getAPIBase();
 
 export default function Signup() {
   const [stage, setStage] = useState(1);
-  const [loading, setLoading] = useState(false);
+  const setLoading = useSetRecoilState(loadingAtom);
   const role = localStorage.getItem("role");
   const navigate = useNavigate();
   const [form, setForm] = useState({
@@ -27,15 +29,12 @@ export default function Signup() {
 
     try {
       setLoading(true);
-      const response = await axios.post(
-        `${API_BASE}/api/v1/user/signup`,
-        {
-          username: form.username,
-          email: form.email,
-          password: form.password,
-          role: form.role,
-        }
-      );
+      const response = await axios.post(`${API_BASE}/api/v1/user/signup`, {
+        username: form.username,
+        email: form.email,
+        password: form.password,
+        role: form.role,
+      });
       // console.log(response.data);
       setStage(2); // move to OTP stage after signup success
       setLoading(false);
@@ -53,13 +52,10 @@ export default function Signup() {
     e.preventDefault();
 
     try {
-      const response = await axios.post(
-        `${API_BASE}/api/v1/user/verify-otp`,
-        {
-          email: form.email,
-          otp: form.otp,
-        }
-      );
+      const response = await axios.post(`${API_BASE}/api/v1/user/verify-otp`, {
+        email: form.email,
+        otp: form.otp,
+      });
 
       console.log("OTP verification successful:", response.data);
 
@@ -88,17 +84,8 @@ export default function Signup() {
   };
 
   return (
-
-    // as after signup it takes 1-2 sec to change stage and load the otp componet and get the response of otp se , we added a loader 
+    // as after signup it takes 1-2 sec to change stage and load the otp componet and get the response of otp se , we added a loader
     <>
-      {loading && (
-        <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
-          <div className="bg-white p-5 rounded-md shadow-lg">
-            <p className="text-xl font-semibold">Loading...</p>
-          </div>
-        </div>
-      )}
-
       {stage === 1 ? (
         <>
           {/* Signup Stage */}

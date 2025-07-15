@@ -67,6 +67,9 @@ Keep the tone approachable, creative, and professional.
         description: generatedText,
       }));
     } catch (error) {
+      if(error.message.includes(502)){
+  alert("Gemini is busy , try after some time")
+      }
       console.error("AI Error:", error);
     } finally {
       setLoadingAI(false);

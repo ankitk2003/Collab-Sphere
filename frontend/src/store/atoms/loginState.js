@@ -9,3 +9,4 @@ export const loadingAtom = atom({
   key: "loadingState",
   default: false,
 });
+// thi is for managing global state variable
